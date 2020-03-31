@@ -1,0 +1,33 @@
+import pymongo #import python mongoDb library
+
+myclient = pymongo.MongoClient("mongodb://localhost:27017/") #create client object
+mydb = myclient["mydatabase"]
+
+dblist=myclient.list_database_names()
+if "mydatabase" in dblist:
+    print("the database exist")
+else:
+    print("the database doesn't exists")
+
+
+mycol=mydb["customers"]
+mydict={"name":"ramzi","address":"highway 37"}
+# x=mycol.insert_one(mydict)
+# print(x.inserted_id)
+#
+#
+# mylist=[{"_id":1,"name":"abdou","address":"highway 37"},
+# {"_id":2,"name":"hilal","address":"highway 37"},
+# {"_id":3,"name":"halouane","address":"highway 37"},
+# {"_id":4,"name":"abirou","address":"highway 37"}
+# ]
+# x=mycol.insert_many(mylist)
+# print(x.inserted_ids)
+#
+#x=mycol.find_one()
+#print(x)
+myquery={"address":"highway"}
+for i in mycol.find({},{"address":0 }):
+    print(i)
+
+mycol.drop()
